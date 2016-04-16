@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">UncountableTry</string>
+    <string name="Welcomemsg">Welcome! Add an image. Then press on image to drag it. Drop it on the grid.</string>
+    <string name="hello">Add an image. Then drag it onto the grid.</string>
+    <integer name="num_images">55</integer>
+    <integer name="num_columns">11</integer>
+</resources>
