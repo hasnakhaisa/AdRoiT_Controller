@@ -1,4 +1,4 @@
-package com.example.prof.uncountabletry;
+package com.example.prof.AdroitController;
 
 /*
  * Copyright (C) 2013 Wglxy.com
@@ -227,7 +227,7 @@ public void SwitchMode (View v) {
     if (gridView == null) toast ("Unable to find GridView");
     else {
          gridView.setAdapter (new ImageCellAdapter (this, mDragController));
-         //gridView.setOnItemClickListener (this);
+        // gridView.setOnItemClickListener (this);
     }
     //mGridView = gridView;
 
