@@ -44,6 +44,7 @@ public class ImageCell extends ImageView
     public boolean mEmpty = true;
     public int mCellNumber = -1;
     public GridView mGrid;
+    public int ResourceId;
 
 /**
  */

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ButtonList">
+        <item>button_up</item>
+        <item>button_down</item>
+        <item>button_right</item>
+        <item>button_left</item>
+        <item>button_a</item>
+        <item>button_b</item>
+        <item>button_c</item>
+        <item>button_d</item>
+        <item>button_e</item>
+    </string-array>
+</resources>

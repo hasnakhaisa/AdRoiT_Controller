@@ -12,18 +12,20 @@ import android.widget.TextView;
 
 public class buttonchooser extends AppCompatActivity {
 
-    String[] Abutton = {"button_up","button_down","button_right","button_left","button_A","button_B","button_C","button_D","button_E"};
+    //String[] Abutton = {"button_up","button_down","button_right","button_left","button_A","button_B","button_C","button_D","button_E"};
+    String[] Abutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buttonchooser);
-
+        Abutton = getResources().getStringArray(R.array.ButtonList);
         ArrayAdapter adapter  = new ArrayAdapter<String>(this, R.layout.activity_buttonlist,Abutton);
 
         ListView listView = (ListView) findViewById(R.id.button_list);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new ListClickHandler());
+
     }
 
     public class ListClickHandler implements OnItemClickListener{
