@@ -36,8 +36,8 @@
                     android:horizontalSpacing="@dimen/grid_cell_spacing"
                     android:stretchMode="columnWidth"
                     android:gravity="center"
-                    android:layout_weight="0.8"
-                    android:transitionGroup="false" />
+                    android:transitionGroup="false"
+                    android:layout_weight="0" />
 
                 <LinearLayout
                     android:orientation="horizontal"

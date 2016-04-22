@@ -96,7 +96,7 @@ public View dragDropView () {
  * @param source DragSource where the drag started
  */
 
-public void onDrop (DragSource source) {
+public void onDrop (DragSource source, int num) {
     if (isEnabled ()) {
        toast ("Moved to trash.");
        setImageLevel (1);

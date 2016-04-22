@@ -21,6 +21,7 @@ package com.example.prof.AdroitController;
 import android.content.ClipData;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -97,6 +98,7 @@ public View dragDropView () {
     return this;
 }
 
+
 /**
  * This method is called at the start of a drag-drop operation so the object being
  * dragged knows that it is being dragged.
@@ -123,7 +125,7 @@ public void onDragStarted () {
 public void onDropCompleted (DropTarget target, boolean success) {
     // Undo what we did in onDragStarted
     if (mCellNumber >= 0) {
-       clearColorFilter ();
+       clearColorFilter();
        invalidate ();
     }
 
@@ -135,7 +137,7 @@ public void onDropCompleted (DropTarget target, boolean success) {
        mEmpty = true;
        if (mCellNumber >= 0) {
           int bg = mEmpty ? R.color.cell_empty : R.color.cell_filled;
-          setBackgroundResource (bg);
+          setBackgroundResource(bg);
           setImageDrawable (null);
        } else {
          // If the cell number is negative, it means we are interacting with a free-standing
@@ -182,7 +184,7 @@ public boolean allowDrop (DragSource source) {
  * @param source DragSource where the drag started
  */
 
-public void onDrop (DragSource source) {
+public void onDrop (DragSource source, int num) {
     Log.d (DragActivity.LOG_NAME, "ImageCell.onDrop: " + mCellNumber + " source: " + source);
         
     // Mark the cell so it is no longer empty.
@@ -196,6 +198,7 @@ public void onDrop (DragSource source) {
     Drawable d = sourceView.getDrawable ();
     if (d != null) {
        this.setImageDrawable (d);
+       this.ResourceId = num;
        this.invalidate ();
     } else {
       Log.e (DragActivity.LOG_NAME, "ImageCell.onDrop. Null Drawable");
@@ -222,7 +225,7 @@ public void onDragEnter (DragSource source) {
 public void onDragExit (DragSource source) {
     if (mCellNumber < 0) return;
     int bg = mEmpty ? R.color.cell_empty : R.color.cell_filled;
-    setBackgroundResource (bg);
+    setBackgroundResource(bg);
 }
 
 /**
@@ -264,7 +267,7 @@ public boolean performClick ()
 
 public boolean performLongClick ()
 {
-    if (!mEmpty) return super.performLongClick ();
+    if (!mEmpty) return super.performLongClick();
     return false;
 }
 

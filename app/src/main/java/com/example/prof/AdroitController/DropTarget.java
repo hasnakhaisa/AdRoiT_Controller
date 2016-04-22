@@ -51,7 +51,7 @@ public View dragDropView ();
  * @param source DragSource where the drag started
  */
 
-public void onDrop (DragSource source);
+public void onDrop (DragSource source, int num);
 
 /**
  * React to a dragged object entering into the view of the DropTarget.

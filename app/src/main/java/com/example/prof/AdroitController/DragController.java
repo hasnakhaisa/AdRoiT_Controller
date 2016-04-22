@@ -45,6 +45,7 @@ public class DragController
     private DragSource mDragSource;       // where the drag originated
     private DropTarget mDropTarget;       // where the object was dropped
 
+    public int ResourceId;
 
 /**
  * Return a new DragController that is set up to work with the object given.
@@ -150,7 +151,7 @@ public DragController (DragDropPresenter p) {
         //   Log.d (DragActivity.LOG_NAME, "Drag dropped. mDragSource drawable: " + ic2.getDrawable ());
         if (isDropTarget) {
            if (target.allowDrop (mDragSource)) {
-              target.onDrop (mDragSource);
+              target.onDrop (mDragSource,ResourceId);
               mDropTarget = target;
               mDropSuccess = true;
               /*
@@ -163,8 +164,8 @@ public DragController (DragDropPresenter p) {
         } else eventResult = false;
         break;
 
-      case DragEvent.ACTION_DRAG_ENDED:
-        Log.d (DragActivity.LOG_NAME, "DragController.onDrag - ended");
+      case DragEvent.ACTION_DRAG_ENDED: //cari tau apa gunanya ini
+        Log.d(DragActivity.LOG_NAME, "DragController.onDrag - ended");
         if (mDragging) {
            // At the end of the drag, do two things.
            // (1) Inform the drag source that the drag is over; (2) Inform the presenter.
@@ -188,8 +189,9 @@ public DragController (DragDropPresenter p) {
  * @return boolean - true means a drag-drop operation started
  */    
 
-public boolean startDrag (View v) {
+public boolean startDrag (View v, int num) {
 
+    ResourceId = num;
     boolean isDragSource = false;
     DragSource ds = null;
     try {

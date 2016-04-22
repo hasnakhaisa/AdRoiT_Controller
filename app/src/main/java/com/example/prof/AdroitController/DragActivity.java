@@ -156,7 +156,7 @@ public class DragActivity extends Activity
                 if (message.equals(ButtonListName[i])) {
                     trace("Success");
                     toast(ButtonListName[i]);
-                    addNewImageToScreen(getResources().getIdentifier(ButtonListName[i] , "drawable", getPackageName()));
+                    addNewImageToScreen(getResources().getIdentifier(ButtonListName[i], "drawable", getPackageName()));
                     break;
                 }
             }
@@ -175,23 +175,24 @@ public class DragActivity extends Activity
            // Tell the user that it takes a long click to start dragging.
 
            ImageCell i = (ImageCell) v;
-           //toast("ResourceID " + String.valueOf(i.ResourceId));
             for (int j = 0; j < ButtonListName.length - 1; j++) {
-            if (i.ResourceId == getResources().getIdentifier(ButtonListName[j] , "drawable", getPackageName())) {
-                switching(ButtonListName[j]);
-                break;
+                if (i.ResourceId == getResources().getIdentifier(ButtonListName[j] , "drawable", getPackageName())) {
+                    switching(ButtonListName[j]);
+                    break;
+                    }
+
             }
-        }
+            trace("Resource Id on Click: " + i.ResourceId);
         }
     }
 
 
     public  void switching(String clicked) {
         switch (clicked) {
-            case "button_up": toast("Maju"); break;
-            case "button_left": toast("Kiri"); break;
-            case "button_right": toast("Kanan"); break;
-            case "button_down": toast("Mundur"); break;
+            case "button_up": trace("Maju"); break;
+            case "button_left": trace("Kiri"); break;
+            case "button_right": trace("Kanan"); break;
+            case "button_down": trace("Mundur"); break;
         }
     }
 
@@ -203,7 +204,7 @@ public class DragActivity extends Activity
     public void onClickAddImage (View v)
     {
         if (!mPlayMode) {
-            addNewImageToScreen ();
+            addNewImageToScreen();
         }
     }
 
@@ -217,6 +218,7 @@ public class DragActivity extends Activity
         if (mPlayMode) {
             toast("Play Mode, Disable editting");
             gridViewUtama.setBackgroundColor(0xFFFFFFFF);
+            //gridViewUtama.setOnTouchListener();
         }
         else {
             toast("Edit Mode, Enable editting");
@@ -277,7 +279,7 @@ public class DragActivity extends Activity
         menu.add(0, HIDE_TRASHCAN_MENU_ID, 0, "Hide Trashcan").setShortcut('1', 'c');
         menu.add(0, SHOW_TRASHCAN_MENU_ID, 0, "Show Trashcan").setShortcut('2', 'c');
         menu.add(0, ADD_OBJECT_MENU_ID, 0, "Add View").setShortcut('9', 'z');
-        menu.add (0, CHANGE_TOUCH_MODE_MENU_ID, 0, "Change Touch Mode");
+        menu.add(0, CHANGE_TOUCH_MODE_MENU_ID, 0, "Change Touch Mode");
 
 
         return true;
@@ -386,7 +388,8 @@ public class DragActivity extends Activity
 
     public boolean onTouch (View v, MotionEvent ev) {
         // If we are configured to start only on a long click, we are not going to handle any events here.
-        if (mLongClickStartsDrag) return false;
+        //if (mLongClickStartsDrag) return false;
+        if (!mPlayMode) return false;
 
         boolean handledHere = false;
 
@@ -394,7 +397,20 @@ public class DragActivity extends Activity
 
         // In the situation where a long click is not needed to initiate a drag, simply start on the down event.
         if (action == MotionEvent.ACTION_DOWN) {
-           handledHere = startDrag (v);
+            ImageCell i = (ImageCell) v;
+            if (i.ResourceId != 0) {
+                for (int j = 0; j < ButtonListName.length - 1; j++) {
+                    if (i.ResourceId == getResources().getIdentifier(ButtonListName[j] , "drawable", getPackageName())) {
+                        switching(ButtonListName[j]);
+                        break;
+                    }
+
+                }
+                trace("Resource Id on touch: " + i.ResourceId);
+            }
+            else mVibrator.vibrate(100);
+
+           //handledHere = startDrag (v);
         }
 
         return handledHere;
@@ -408,8 +424,8 @@ public class DragActivity extends Activity
     public boolean startDrag (View v) {
         // We are starting a drag-drop operation.
         // Set up the view and let our controller handle it.
-        v.setOnDragListener (mDragController);
-        mDragController.startDrag (v);
+        v.setOnDragListener(mDragController);
+        mDragController.startDrag(v, ((ImageCell) v).ResourceId);
         return true;
     }
 
